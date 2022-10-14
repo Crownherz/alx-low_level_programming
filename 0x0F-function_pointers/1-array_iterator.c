@@ -1,23 +1,19 @@
-#ifndef VARIADIC_FUNCTIONS_H
-#define VARIADIC_FUNCTIONS_H
-
-#include <stdarg.h>
+#include "function_pointers.h"
 
 /**
- * struct printer - A new struct type defining a printer.
- * @symbol: A symbol representing a data type.
- * @print: A function pointer to a function that prints
- *         a data type corresponding to symbol.
+ * array_iterator - executes a function given as a
+ * parameter on each element of an array.
+ * @array: input integer array.
+ * @size: size of the array.
+ * @action: pointer to the function.
+ *
+ * Return: no return.
  */
-typedef struct printer
+void array_iterator(int *array, size_t size, void (*action)(int))
 {
-	char *symbol;
-	void (*print)(va_list arg);
-} printer_t;
+	unsigned int i;
 
-int sum_them_all(const unsigned int n, ...);
-void print_numbers(const char *separator, const unsigned int n, ...);
-void print_strings(const char *separator, const unsigned int n, ...);
-void print_all(const char * const format, ...);
-
-#endif
+	if (array && action)
+		for (i = 0; i < size; i++)
+			action(array[i]);
+}
